@@ -12,11 +12,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Build Docker Image
-      run: docker build -t xmas-xchange-app .
-
-    - name: Run Docker Image
-      run: docker run xmas-xchange-app -p 5050:5000
+    - name: Run docker-compose
+      uses: hoverkraft-tech/compose-action@v2.0.1
+      with:
+        up-flags: "-d"
 
   run-postman-tests:
     name: Run Postman Collection Tests
