@@ -298,8 +298,8 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"var expectedUsersCount = pm.environment.get(\"EXPECTED_USERS_COUNT\");",
-							"pm.test(\"Response has \" + expectedUsersCount + \" items\", function () {",
+							"var expectedUsersCount = pm.variables.get(\"EXPECTED_USERS_COUNT\");",
+							"pm.test(\"Response has \" + expectedUsersCount + \" number of users\", function () {",
 							"    try {",
 							"        var jsonData = pm.response.json();",
 							"        var itemCount = Object.keys(jsonData).length;",
@@ -344,8 +344,8 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"var name = pm.environment.get(\"NAME\");",
-							"var phone = pm.environment.get(\"PHONE_NUMBER\");",
+							"var name = pm.variables.get(\"NAME\");",
+							"var phone = pm.variables.get(\"PHONE_NUMBER\");",
 							"pm.test(\"Body contains expected results\", function () {",
 							"    pm.expect(pm.response.text()).to.include(name);",
 							"    pm.expect(pm.response.text()).to.include(phone);",
@@ -385,7 +385,7 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"var phone = pm.environment.get(\"PHONE_NUMBER\");",
+							"var phone = pm.variables.get(\"PHONE_NUMBER\");",
 							"pm.test(\"Body contains valid phone number\", function () {",
 							"    pm.expect(pm.response.text()).to.include(\"+\" + phone);",
 							"});"
@@ -492,11 +492,6 @@
 		{
 			"key": "INVALID_PHONE_NUMBER",
 			"value": "1234567890",
-			"type": "string"
-		},
-		{
-			"key": "EXPECTED_USERS_COUNT",
-			"value": "7",
 			"type": "string"
 		}
 	]

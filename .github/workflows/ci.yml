@@ -58,12 +58,6 @@ jobs:
     - name: Run Postman Collection tests with Newman
       run: |
         newman run postman/xmas-xchange-app.postman_collection.json --delay-request 1000
-      env:
-        NAME: Adam
-        PHONE_NUMBER: 15556667777
-        INVALID_NAME:  Jared
-        INVALID_PHONE_NUMBER: 1234567890
-        EXPECTED_USERS_COUNT: 7
 
     - name: Run `docker compose down`
       run: |
