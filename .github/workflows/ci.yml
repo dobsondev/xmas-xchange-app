@@ -12,10 +12,16 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Run docker-compose
-      uses: hoverkraft-tech/compose-action@v2.0.1
-      with:
-        up-flags: "-d"
+    - name: Generate app/data.json
+      run: cp app/data.sample.json app/data.json
+
+    - name: Run docker-compose up
+      run: |
+        docker compose up -d
+
+    - name: Run docker-compose down
+      run: |
+        docker compose down
 
   run-postman-tests:
     name: Run Postman Collection Tests
@@ -25,6 +31,24 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Generate app/data.json
+      run: cp app/data.sample.json app/data.json
+
+    - name: Generate Environment Variables
+      run: |
+        EXPORT name=Adam
+        EXPORT phone-number=15556667777
+        EXPORT name_fail=Jared
+        EXPORT phone-number_fail=1234567890
+        EXPORT expected-users-count=7
+
+    - name: Run docker-compose
+      run: |
+        docker compose up -d
+
     - name: Install Newman
       run: |
         sudo npm install -g newman
@@ -33,5 +57,6 @@ jobs:
       run: |
         newman run postman/xmas-xchange-app.postman_collection.json --delay-request 1000
 
-    - name: Stop and Remove Docker Image
-      run: docker rm xmas-xchange-app
+    - name: Run docker-compose down
+      run: |
+        docker compose down
