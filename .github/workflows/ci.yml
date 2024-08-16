@@ -1,0 +1,64 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build Application with Docker
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Generate app/data.json
+      run: cp app/data.sample.json app/data.json
+
+    - name: Run `docker compose build --no-cache`
+      run: |
+        docker compose build --no-cache
+
+    - name: Run `docker compose up`
+      run: |
+        docker compose up -d
+
+    - name: Run `docker compose down`
+      run: |
+        docker compose down
+
+  run-postman-tests:
+    name: Run Postman Collection Tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Generate app/data.json
+      run: |
+        cp app/data.sample.json app/data.json
+        cat app/data.json
+
+    - name: Run `docker compose build --no-cache`
+      run: |
+        docker compose build --no-cache
+
+    - name: Run `docker compose up`
+      run: |
+        docker compose up -d
+
+    - name: Install Newman
+      run: |
+        sudo npm install -g newman
+
+    - name: Run Postman Collection tests with Newman
+      run: |
+        newman run postman/xmas-xchange-app.postman_collection.json --delay-request 1000
+
+    - name: Run `docker compose down`
+      run: |
+        docker compose down

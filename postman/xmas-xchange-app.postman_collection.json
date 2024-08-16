@@ -1,0 +1,503 @@
+{
+	"info": {
+		"_postman_id": "d98059d3-56f1-4f09-b4fd-1a7dceda6d9a",
+		"name": "xmas xchange app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35117207"
+	},
+	"item": [
+		{
+			"name": "Requests to Fail",
+			"item": [
+				{
+					"name": "Test SMS Reply - Fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Body",
+									"value": "Christmas",
+									"type": "text"
+								},
+								{
+									"key": "From",
+									"value": "+{{INVALID_PHONE_NUMBER}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5050/sms/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5050",
+							"path": [
+								"sms",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User - Fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5050/user/{{INVALID_NAME}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5050",
+							"path": [
+								"user",
+								"{{INVALID_NAME}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Phone Number - Fail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									"",
+									"pm.test(\"Phone number is not authorized\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"is not an authorized phone number\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5050/validate-number/{{INVALID_PHONE_NUMBER}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5050",
+							"path": [
+								"validate-number",
+								"{{INVALID_PHONE_NUMBER}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test SMS - Christmas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Body",
+							"value": "Christmas",
+							"type": "text"
+						},
+						{
+							"key": "From",
+							"value": "+{{PHONE_NUMBER}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5050/sms/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5050",
+					"path": [
+						"sms",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test SMS - Subsrcibe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"You are now subscribed.\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Body",
+							"value": "Subscribe",
+							"type": "text"
+						},
+						{
+							"key": "From",
+							"value": "+{{PHONE_NUMBER}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5050/sms/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5050",
+					"path": [
+						"sms",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test SMS - Lucky Number",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Your lucky number is\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Body",
+							"value": "Something random",
+							"type": "text"
+						},
+						{
+							"key": "From",
+							"value": "+{{PHONE_NUMBER}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5050/sms/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5050",
+					"path": [
+						"sms",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assignments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var expectedUsersCount = pm.variables.get(\"EXPECTED_USERS_COUNT\");",
+							"pm.test(\"Response has \" + expectedUsersCount + \" number of users\", function () {",
+							"    try {",
+							"        var jsonData = pm.response.json();",
+							"        var itemCount = Object.keys(jsonData).length;",
+							"        pm.expect(itemCount).to.eql(parseInt(expectedUsersCount));",
+							"    } catch (e) {",
+							"        pm.test(\"Response is not a valid JSON object\", function() {",
+							"            throw new Error(\"Response is not a valid JSON object\");",
+							"        });",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5050/assignments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5050",
+					"path": [
+						"assignments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var name = pm.variables.get(\"NAME\");",
+							"var phone = pm.variables.get(\"PHONE_NUMBER\");",
+							"pm.test(\"Body contains expected results\", function () {",
+							"    pm.expect(pm.response.text()).to.include(name);",
+							"    pm.expect(pm.response.text()).to.include(phone);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5050/user/{{NAME}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5050",
+					"path": [
+						"user",
+						"{{NAME}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Valid Phone Numbers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var phone = pm.variables.get(\"PHONE_NUMBER\");",
+							"pm.test(\"Body contains valid phone number\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"+\" + phone);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5050/valid-phone-numbers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5050",
+					"path": [
+						"valid-phone-numbers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate Phone Number",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Phone number is authorized\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"is an authorized phone number\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5050/validate-number/{{PHONE_NUMBER}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5050",
+					"path": [
+						"validate-number",
+						"{{PHONE_NUMBER}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "NAME",
+			"value": "Adam",
+			"type": "string"
+		},
+		{
+			"key": "PHONE_NUMBER",
+			"value": "15556667777",
+			"type": "string"
+		},
+		{
+			"key": "INVALID_NAME",
+			"value": "Jared",
+			"type": "string"
+		},
+		{
+			"key": "INVALID_PHONE_NUMBER",
+			"value": "1234567890",
+			"type": "string"
+		},
+		{
+			"key": "EXPECTED_USERS_COUNT",
+			"value": "7",
+			"type": "string"
+		}
+	]
+}

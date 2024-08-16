@@ -1,2 +1,3 @@
 __pycache__
-approved_numbers.txt
+.env
+data.json
