@@ -12,8 +12,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Run docker-compose
-      run: docker-compose up -d
+    - name: Build Docker Image
+      run: docker build -t xmas-xchange-app .
+
+    - name: Run Docker Image
+      run: docker run xmas-xchange-app -p 5050:5000
 
   run-postman-tests:
     name: Run Postman Collection Tests
@@ -31,5 +34,5 @@ jobs:
       run: |
         newman run postman/xmas-xchange-app.postman_collection.json --delay-request 1000
 
-    - name: Bring down Docker application
-      run: docker-compose down
+    - name: Stop and Remove Docker Image
+      run: docker rm xmas-xchange-app
