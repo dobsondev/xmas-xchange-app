@@ -1,0 +1,38 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build Application with Docker
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Docker
+      uses: actions/setup-docker@v1
+
+    - name: Run docker-compose
+      run: docker-compose up -d
+
+  run-postman-tests:
+    name: Run Postman Collection Tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Newman
+      run: |
+        sudo npm install -g newman
+
+    - name: Run Postman Collection tests with Newman
+      run: |
+        newman run postman/xmas-xchange-app.postman_collection.json --delay-request 1000
+
+    - name: Bring down Docker application
+      run: docker-compose down
