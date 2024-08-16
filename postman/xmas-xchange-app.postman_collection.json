@@ -38,7 +38,7 @@
 								},
 								{
 									"key": "From",
-									"value": "+{{phone-number_fail}}",
+									"value": "+{{INVALID_PHONE_NUMBER}}",
 									"type": "text"
 								}
 							]
@@ -78,7 +78,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5050/user/{{name_fail}}",
+							"raw": "http://localhost:5050/user/{{INVALID_NAME}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -86,7 +86,7 @@
 							"port": "5050",
 							"path": [
 								"user",
-								"{{name_fail}}"
+								"{{INVALID_NAME}}"
 							]
 						}
 					},
@@ -116,7 +116,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5050/validate-number/{{phone-number_fail}}",
+							"raw": "http://localhost:5050/validate-number/{{INVALID_PHONE_NUMBER}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -124,7 +124,7 @@
 							"port": "5050",
 							"path": [
 								"validate-number",
-								"{{phone-number_fail}}"
+								"{{INVALID_PHONE_NUMBER}}"
 							]
 						}
 					},
@@ -161,7 +161,7 @@
 						},
 						{
 							"key": "From",
-							"value": "+{{phone-number}}",
+							"value": "+{{PHONE_NUMBER}}",
 							"type": "text"
 						}
 					]
@@ -214,7 +214,7 @@
 						},
 						{
 							"key": "From",
-							"value": "+{{phone-number}}",
+							"value": "+{{PHONE_NUMBER}}",
 							"type": "text"
 						}
 					]
@@ -267,7 +267,7 @@
 						},
 						{
 							"key": "From",
-							"value": "+{{phone-number}}",
+							"value": "+{{PHONE_NUMBER}}",
 							"type": "text"
 						}
 					]
@@ -298,7 +298,7 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"var expectedUsersCount = pm.environment.get(\"expected-users-count\");",
+							"var expectedUsersCount = pm.environment.get(\"EXPECTED_USERS_COUNT\");",
 							"pm.test(\"Response has \" + expectedUsersCount + \" items\", function () {",
 							"    try {",
 							"        var jsonData = pm.response.json();",
@@ -344,8 +344,8 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"var name = pm.environment.get(\"name\");",
-							"var phone = pm.environment.get(\"phone-number\");",
+							"var name = pm.environment.get(\"NAME\");",
+							"var phone = pm.environment.get(\"PHONE_NUMBER\");",
 							"pm.test(\"Body contains expected results\", function () {",
 							"    pm.expect(pm.response.text()).to.include(name);",
 							"    pm.expect(pm.response.text()).to.include(phone);",
@@ -360,7 +360,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5050/user/{{name}}",
+					"raw": "http://localhost:5050/user/{{NAME}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -368,7 +368,7 @@
 					"port": "5050",
 					"path": [
 						"user",
-						"{{name}}"
+						"{{NAME}}"
 					]
 				}
 			},
@@ -385,7 +385,7 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"var phone = pm.environment.get(\"phone-number\");",
+							"var phone = pm.environment.get(\"PHONE_NUMBER\");",
 							"pm.test(\"Body contains valid phone number\", function () {",
 							"    pm.expect(pm.response.text()).to.include(\"+\" + phone);",
 							"});"
@@ -436,7 +436,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5050/validate-number/{{phone-number}}",
+					"raw": "http://localhost:5050/validate-number/{{PHONE_NUMBER}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -444,7 +444,7 @@
 					"port": "5050",
 					"path": [
 						"validate-number",
-						"{{phone-number}}"
+						"{{PHONE_NUMBER}}"
 					]
 				}
 			},
