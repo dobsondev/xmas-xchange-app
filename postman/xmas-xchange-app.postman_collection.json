@@ -493,6 +493,11 @@
 			"key": "INVALID_PHONE_NUMBER",
 			"value": "1234567890",
 			"type": "string"
+		},
+		{
+			"key": "EXPECTED_USERS_COUNT",
+			"value": "7",
+			"type": "string"
 		}
 	]
 }
